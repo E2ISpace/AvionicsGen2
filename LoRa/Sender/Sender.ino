@@ -7,7 +7,7 @@
 #define DIO0_PIN 2     // LoRa 모듈의 DIO0 핀
 
 void setup() {
-  Serial.begin(115200); // 시리얼 통신 초기화
+  Serial.begin(9600); // 시리얼 통신 초기화
   while (!Serial);
 
   Serial.println("LoRa 송신기 초기화 시작");
@@ -16,7 +16,7 @@ void setup() {
   LoRa.setPins(CS_PIN, RESET_PIN, DIO0_PIN);
 
   // LoRa 초기화 (920.9 MHz)
-  if (!LoRa.begin(920900000)) {
+  if (!LoRa.begin(9209E5)) {
     Serial.println("LoRa 초기화 실패!");
     while (1);
   }
