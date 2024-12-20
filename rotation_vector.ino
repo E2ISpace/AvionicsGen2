@@ -1,19 +1,23 @@
 #include <Adafruit_BNO08x.h> 
 #include <Adafruit_Sensor.h> 
+#include <Wire.h>
 
 Adafruit_BNO08x bno08x; // 객체 선언
 sh2_SensorValue_t sensorValue;
 
 void setup(void) {
-  Serial.begin(115200);
+  Wire.setSDA(17);
+  Wire.setSCL(16);
+  Wire.begin();
   while (!Serial) delay(10);     
 
+  Serial.begin(115200);
   Serial.println("Adafruit BNO08x test!");
 
   // Try to initialize!
-  if (!bno08x.begin_I2C()) {
+  if (!bno08x.begin_I2C(BNO08x_I2CADDR_DEFAULT, &Wire)) {
     Serial.println("Failed to find BNO08x chip");
-    Serial.println(bno08x.begin_I2C());
+    Serial.println(bno08x.begin_I2C(BNO08x_I2CADDR_DEFAULT, &Wire)); 
     while (1) { delay(10); }
   }
   Serial.println("BNO08x Found!");
